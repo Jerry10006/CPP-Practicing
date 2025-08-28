@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "F5 Debug C++",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}/${fileBasenameNoExtension}", // 編譯後可執行檔
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,        
+            "MIMode": "lldb",
+            "preLaunchTask": "Build C++"      // F5 自動先編譯
+        }
+    ]
+}
