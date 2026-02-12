@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 3.28)
 project(CPP_Practice)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -17,3 +17,5 @@ add_subdirectory(CF)
 add_subdirectory(YS)
 add_subdirectory(AtCoder)
 add_subdirectory(SPOJ)
+
+add_executable(test test.cpp)

@@ -1,6 +1,7 @@
-cmake_minimum_required(VERSION 3.31)
+cmake_minimum_required(VERSION 3.28)
 project(SPOJ)
 file(GLOB ALL_CPP_FILES "*.cpp")
+set(CMAKE_CXX_STANDARD 23)
 
 foreach(source_file ${ALL_CPP_FILES})
     message(STATUS "Adding target for ${source_file}")
