@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.31)
 project(USACO_Silver)
 file(GLOB ALL_CPP_FILES "*.cpp")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 foreach(source_file ${ALL_CPP_FILES})
     message(STATUS "Adding target for ${source_file}")
