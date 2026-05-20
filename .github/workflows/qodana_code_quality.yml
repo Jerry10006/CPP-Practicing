@@ -15,29 +15,35 @@ jobs:
       pull-requests: write
       checks: write
     steps:
-      # 1. 正常拉取程式碼
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # 2. 在專案根目錄下建立 build 並生成 compile_commands.json
+      # 1. 生成編譯資料庫
       - name: Generate Compile Commands
         run: |
           cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
-      # 3. 執行 Qodana 掃描（拿掉 args，讓它走標準預設相對路徑）
+      # 2. 執行 Qodana 掃描（加入專屬 args 來修正路徑對齊問題）
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2026.1
         with:
           pr-mode: false
+          # 💡 核心修正：強制指定專案目錄與編譯資料庫的相對位置，並要求它列印問題
+          args: >
+            -i .
+            --compile-commands=./build/compile_commands.json
+            --print-problems
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1090338225 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
 
-      # 4. 失敗時留存日誌
+      # 3. 萬一失敗，把 logs 打包，讓我們可以去 GitHub Actions 下載來看
       - name: Upload Qodana Logs
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: qodana-logs
-          path: ${{ github.workspace }}/../**/logs/
+          path: |
+            ${{ github.workspace }}/../**/logs/
+            ${{ github.workspace }}/build/compile_commands.json
