@@ -19,10 +19,18 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
           fetch-depth: 0  # a full history is required for pull request analysis
+
+      # ✨ 核心修改：在掃描前先叫 CMake 生出 compile_commands.json
+      - name: Generate Compile Commands
+        run: |
+          cmake -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+
       - name: 'Qodana Scan'
         uses: JetBrains/qodana-action@v2026.1
         with:
           pr-mode: false
+          # 💡 這邊手動指定剛剛產出的路徑，確保 Qodana 絕對讀得到
+          args: --compile-commands=build/compile_commands.json
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN_1090338225 }}
           QODANA_ENDPOINT: 'https://qodana.cloud'
