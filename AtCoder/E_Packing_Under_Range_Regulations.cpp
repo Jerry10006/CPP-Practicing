@@ -25,7 +25,6 @@ bool check()
         {
             box_idx = max(box_idx, lim[ball_idx].first);
         }
-
         while (ball_idx < N && lim[ball_idx].first <= box_idx)
         {
             left.push({lim[ball_idx].second, lim[ball_idx].first});
