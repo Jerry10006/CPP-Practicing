@@ -35,6 +35,7 @@ int main(){
 
     for (int i = 0; i < N; i++){
         int a, b;
+        cin >> a >> b;
         pos.push_back({a, b});
         x.push_back(a);
         y.push_back(b);
@@ -44,7 +45,7 @@ int main(){
     sort(all(y));
 
     x.erase(unique(all(x)), x.end());
-    y.erase(unique(all(x)), x.end());
+    y.erase(unique(all(y)), y.end());
     
     POS start, stop;
     start = {lower_bound(all(x), xl) - x.begin(), lower_bound(all(y), yl) - y.begin(), 0};

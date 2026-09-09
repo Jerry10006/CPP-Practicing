@@ -17,5 +17,6 @@ add_subdirectory(CF)
 add_subdirectory(YS)
 add_subdirectory(AtCoder)
 add_subdirectory(SPOJ)
+add_subdirectory(oj-uz)
 
 add_executable(test test.cpp)
