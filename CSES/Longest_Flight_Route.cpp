@@ -10,7 +10,8 @@ int main()
     cin >> N >> M;
     vector<vector<int>> adj(N + 1);
     vector<int> InDegree(N + 1);
-    vector<int> ans(N + 1, -1), parent(N + 1);
+    vector<int> ans(N + 1, - 1), parent(N + 1);
+    ans[1] = 1;
 
     for (int i = 0; i < M; i++){
         int a, b;
@@ -25,7 +26,6 @@ int main()
     {
         q.push(i);
         ordered.push_back(i);
-        ans[i] = 1;
     } 
 
     while (!q.empty()){
@@ -43,14 +43,18 @@ int main()
 
     for (auto u: ordered)
     {
+        if (ans[u] == -1) continue;
         for (auto v: adj[u])
         {
-            ans[v] = max(ans[v], ans[u] + 1);
-            parent[v] = u;
+            if (ans[u] + 1 > ans[v])
+            {
+                ans[v] = ans[u] + 1;
+                parent[v] = u;
+            }
         }
     }
 
-    if (ans[N] == -1)
+    if (ans[N] == -1 || ans[1] == -1)
     {
         cout << "IMPOSSIBLE";
         return 0;
