@@ -56,7 +56,7 @@ struct segTree
         push(node, l, r);
         if (r < ql || l > qr) return;
 
-        if (l>= ql && r <= qr)
+        if (l >= ql && r <= qr)
         {
             lazy[node] = val;
             push(node, l, r);
